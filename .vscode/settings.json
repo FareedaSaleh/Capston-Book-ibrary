@@ -6,5 +6,6 @@
     "python.linting.pylintArgs": [
         "--load-plugins",
         "pylint-flask"
-    ]
+    ],
+    "python.pythonPath": "env/bin/python3"
 }

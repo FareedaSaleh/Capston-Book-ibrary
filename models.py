@@ -30,13 +30,13 @@ class Author(db.Model):
   auth_nam = db.Column(db.String, nullable=False)
   gender = db.Column(db.String, nullable=True)
   count_book = db.Column(db.Integer,nullable=False)
-  category=db.relationship('Category', backref='author', lazy=True)
+  # category=db.relationship('Category', backref='author', lazy=True)
 
-  def __init__(self,auth_nam,gender,count_book,category):
+  def __init__(self,auth_nam,gender,count_book):
     self.auth_nam = auth_nam
     self.gender = gender
     self.count_book = count_book
-    self.category = category
+    # self.category = category
 
   def insert(self):
     db.session.add(self)
@@ -55,7 +55,7 @@ class Author(db.Model):
       'auth_nam': self.auth_nam,
       'gender': self.gender,
       'count_book': self.count_book,
-      'category': self.category
+      # 'category': self.category
     }
 
 '''
@@ -66,13 +66,15 @@ class Book(db.Model):
   id = db.Column(db.Integer().with_variant(Integer, "sqlite"), primary_key=True)
   book_name=db.Column(db.String,nullable=False)
   book_issue=db.Column(db.DateTime,nullable=False)
-  category=db.relationship('Category', backref='book', lazy=True)
+  # category=db.relationship('Category', backref='book', lazy=True)
+  # category=db.Column(db.String,nullable=True)
 
-  def __init__(self, book_name, book_issue, category):
+
+  def __init__(self, book_name, book_issue):
      db.create_all()
      self.book_name = book_name
      self.book_issue = book_issue
-     self.category = category
+    #  self.category = category
 
   def insert(self):
     db.session.add(self)
@@ -90,24 +92,24 @@ class Book(db.Model):
       'id': self.id,
       'book_name': self.book_name,
       'book_issue': self.book_issue,
-      'category': self.category,
+      # 'category': self.category,
     }
 
 
 '''
-Category
+Ralation with Category Book and Author will be add in the 2nd version of this project
 '''
 class Category(db.Model):
   __tablename__ = 'category'
   id = Column(db.Integer, primary_key=True)
   name = Column(db.String,nullable=False)
-  book_id = db.Column(db.Integer, db.ForeignKey('book.id'),nullable=False)
-  author_id = db.Column(db.Integer, db.ForeignKey('author.id'),nullable=False)
+  # book_id = db.Column(db.Integer, db.ForeignKey('book.id'),nullable=False)
+  # author_id = db.Column(db.Integer, db.ForeignKey('author.id'),nullable=False)
 
   def __init__(self, name, book_id, author_id):
     self.name = name
-    self.book_id = book_id
-    self.author_id = author_id
+    # self.book_id = book_id
+    # self.author_id = author_id
 
   def insert(self):
     db.session.add(self)
@@ -124,6 +126,6 @@ class Category(db.Model):
     return {
       'id': self.id,
       'name': self.name,
-      'book_id': self.book_id,
-      'author_id': self.author_id,
+      # 'book_id': self.book_id,
+      # 'author_id': self.author_id,
     }
