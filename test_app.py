@@ -69,14 +69,14 @@ class LibraryTestCase(unittest.TestCase):
 
     # test create new book
     def test_create_book(self):
-        new_book_issue = datetime.datetime(2009, 5, 5)
+        new_book_issue = datetime.datetime(2020, 1, 1)
         res = self.client().post(
             '/books',
             headers={
                 'Authorization': 'Bearer ' + self.author_assistant},
             json={
                 'id': 11,
-                'book_name': 'Hope12',
+                'book_name': 'Hope every day',
                 'book_issue': new_book_issue})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
