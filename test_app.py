@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app import create_app
 from models import setup_db, Author,Book,Category
 from auth.auth import AuthError, requires_auth
+import datetime
 
 class LibraryTestCase(unittest.TestCase):
     """This class represents the library test case"""
@@ -16,8 +17,8 @@ class LibraryTestCase(unittest.TestCase):
          self.database_name = "library_test"
          self.database_path = "postgres://{}/{}".format('localhost:5432', self.database_name)
          setup_db(self.app, self.database_path)
-         self.admin='eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InZnbFFud3dmbDJBNDJLMkVOSUdKbSJ9.eyJpc3MiOiJodHRwczovL3B1YmxpY2xpYnJhcnkudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlZjhlNzMyNzE0NjhjMDAxM2ZmYjNhNCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImlhdCI6MTU5MzM3NTI2MiwiZXhwIjoxNTkzMzgyNDYyLCJhenAiOiI5VVhweUIycWhYQjQ4bDZmckNEaFBvZnJTWmpteWhmQSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOltdfQ.c4K9G3WNC5M-ktTnUAdyOXEzaJgbA2G1ZPdGXP5HrFKBdMBt7YwuVikTQBxT3X_vL2rLtIDs72Lt9AGn0F56k2km1NrqYbvTqcoHizktnmyM1hRLMZFb-6kZ7pV3ZsTSM77Oa3pZHddZLVvid9z_y6NqjQ0qwHSlLwXNS_fRYOutwSGsAqvQ1gP5ME4HopEKgMQbpTfm-6FW_EsKEd1JDDJaJuK9sFTuFpkAw5iPT9w5LVbYujdUICov9DwtOQpVpBqolv26VaXrmmjTj0f4a2hw6S8nxSvTIkSuUblxGC1tprD0IPmrXhDa9Kc4TRNABeWBpbJLOhbRXJnursvv5A'
-         self.author_assistant='eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InZnbFFud3dmbDJBNDJLMkVOSUdKbSJ9.eyJpc3MiOiJodHRwczovL3B1YmxpY2xpYnJhcnkudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlZjhlNzA0NzE0NjhjMDAxM2ZmYjNhMSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImlhdCI6MTU5MzM3MjQ2MCwiZXhwIjoxNTkzMzc5NjYwLCJhenAiOiI5VVhweUIycWhYQjQ4bDZmckNEaFBvZnJTWmpteWhmQSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsicGF0Y2g6Ym9vayIsInBvc3Q6Ym9vayJdfQ.iuMOHrIhToz8LZ9eg9BmHl4XsP1tfzBJ_l23Jklgy7nXIXSmZBy8_McNpGM9IWL88IaIwW0VqxFTBbimKZ3bwRumPCrdnu4VU_fA7Xs_UKSg_MVgMZyxAuawz8kcy1X6M7BIHKAuQUxTjADrwBE_4c6J1EKU0dJaGxeqQY2u0yvy7r5zR92bvNo-9rDZheA3saeNu3lvUd1yXgsjkwDKr1qQSJSGiWW4XkUxFcwoOv7AOf4fnz_bjffIxBsw5W_jl2vgJe2QQzsv-bFC4No7YtILyiVYpIQKUxAGsgrMSkt9xZcgnf_r1FwGnsOK7t43X63Ly8TNzhUBXUWoh8Y2Nw'
+         self.admin='eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InZnbFFud3dmbDJBNDJLMkVOSUdKbSJ9.eyJpc3MiOiJodHRwczovL3B1YmxpY2xpYnJhcnkudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlZjhlNzMyNzE0NjhjMDAxM2ZmYjNhNCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImlhdCI6MTU5MzQyODk2OCwiZXhwIjoxNTkzNDM2MTY4LCJhenAiOiI5VVhweUIycWhYQjQ4bDZmckNEaFBvZnJTWmpteWhmQSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmF1dGhvciIsImRlbGV0ZTpib29rIiwicGF0Y2g6YXV0aG9yIiwicGF0Y2g6Ym9vayIsInBvc3Q6YXV0aG9yIiwicG9zdDpib29rIl19.yt4QrKXT5YKo6gadT-ZxpgD1AoUc12sbIy_nd9DBT0S208dQDd8ghUolSr6s1suw3R4sMl0EAJfe0C-u77w5MNJmf2GdclO5aybYuzz0Ohc3LiIVHbTohgrFengzhGUYV3fgX01QiKnw3NZ7IIZct0vfVKSG2z_fSbbnLGO7GPmpW8Kc1_Rr-LpN-YFUqpw50_oUiunhcJTxKSfIUfHbjcDAg1JJBYHWZl-M4OI-YNXwll805rzgwBZkWKW37Yihahg0-8GEhP2Mhb-9RK6hpv0EWRLOJw5h6tRFvWiT7UV3_Vd4ByCT7zQ4wDaKo9Wumze8UHKNCJXICAkpRTjEww'
+         self.author_assistant='eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InZnbFFud3dmbDJBNDJLMkVOSUdKbSJ9.eyJpc3MiOiJodHRwczovL3B1YmxpY2xpYnJhcnkudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlZjhlNzA0NzE0NjhjMDAxM2ZmYjNhMSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImlhdCI6MTU5MzQyOTAyMSwiZXhwIjoxNTkzNDM2MjIxLCJhenAiOiI5VVhweUIycWhYQjQ4bDZmckNEaFBvZnJTWmpteWhmQSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsicGF0Y2g6Ym9vayIsInBvc3Q6Ym9vayJdfQ.Ll4WqX0oUQm5pR-Mqrfixlp-AD913oL0AgPMqEH5OTch4BMAkHXSj8plNyNFJ7kj2InlzN9rfU9jgulZUWhQOFD4sTqQNHWTw1kVcW75kShZvkpaHafvctzCqZtyOKhfpdeMDiwXriaYdVPbQO7AIpojqTMfpr2jzXD5HQfRBNHIQ7884GR5CpJN0b_Bxy9ernjPT0BjXiRONCxt_H5CAA7smbVmIk49WFzNevuVf1UwPt7WPkpZWWLeLb6wRQ-IcmU1QTAHjbhAulQYHqB_d2hiqEI3MWrOVeTJYgvvdzrsphJv_NxitNu8M6w5WJwXcvbWR31ZuGO5PyQqLi1Yhg'
         
          with self.app.app_context():
              self.db = SQLAlchemy()
@@ -50,15 +51,16 @@ class LibraryTestCase(unittest.TestCase):
     
     #test updat book with new values:
     def test_updat_book(self):
-        res=self.client().patch('/books/3',headers={'Authorization': 'Bearer ' + self.author_assistant},json={ 'book_name':'Fish: A Proven Way to Boost Morale and Improve Results','book_issue':'2020-03-13'})
+        res=self.client().patch('/books/4',headers={'Authorization': 'Bearer ' + self.author_assistant},json={ 'book_name':'Fish: A Proven Way to Boost Morale and Improve Results','book_issue':'2020-03-13'})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['massege'], 'update the book')
-        self.assertEqual(data['updated'], 3)
+        self.assertEqual(data['updated'], 4)
     
     #test create new book
     def test_create_book(self):
-       res=self.client().post('/books', headers={'Authorization': 'Bearer ' + self.author_assistant},json={'book_name':'TestAuthor','book_issue':'22-3-2010'})
+       new_book_issue = datetime.datetime(2009, 5, 5)
+       res=self.client().post('/books', headers={'Authorization': 'Bearer ' + self.author_assistant},json={'id':11,'book_name':'Hope12','book_issue':new_book_issue})
        data= json.loads(res.data)
        self.assertEqual(res.status_code, 200)
        self.assertEqual(data['success'], True)
@@ -95,7 +97,7 @@ class LibraryTestCase(unittest.TestCase):
         self.assertTrue(data['author'])
 
     def test_search_book(self):
-        res=self.client().post('/books/search', json={"search":"Book3"})
+        res=self.client().post('/books/search', json={"search":"Hope"})
         data=json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
@@ -117,6 +119,25 @@ class LibraryTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Page Not Found')
+    
+    ##test Unuthorization:
+    def test_401_if_uthors_delete_book(self):
+        res= self.client().delete('books/4', headers={'Authorization': 'Bearer ' + self.author_assistant})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['success'], False)
+    
+    def test_401_if_uthors_delete_authors(self):
+        res= self.client().delete('authors/4', headers={'Authorization': 'Bearer ' + self.author_assistant})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['success'], False)
+
+    def test_401_if_uthors_create_uthors(self):
+        res= self.client().post('authors', headers={'Authorization': 'Bearer ' + self.author_assistant}, json={'auth_nam':'TestAuthor','gender':'F','count_book':1})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['success'], False)
 
     def test_404_search_Non(self):
         res=self.client().post('/books/search', json={"search":""})
@@ -126,7 +147,7 @@ class LibraryTestCase(unittest.TestCase):
         self.assertEqual(data['message'], 'Page Not Found')
     
 
-    
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
