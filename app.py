@@ -205,6 +205,13 @@ def create_app(test_config=None):
             })
         except BaseException:
             abort(422)
+      
+    @app.route('/')
+    def main_page():
+        return jsonify({
+            'success': False,
+            'message': 'f'
+        })
 
        # error handeler methods:
     @app.errorhandler(401)
