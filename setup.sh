@@ -1,15 +1,6 @@
-/* @TODO replace with your variables
- * ensure all variables on this page match your project
- */
-
-export const environment = {
-  production: false,
-  apiServerUrl: 'http://127.0.0.1:5000', // the running FLASK api server url
-  auth0: {
-    url: 'publiclibrary.us.auth0.com', // the auth0 domain prefix
-    audience: 'http://localhost:5000', // the audience set for the auth0 app
-    clientId: '9UXpyB2qhXB48l6frCDhPofrSZjmyhfA', // the client id generated for the auth0 app
-    callbackURL: 'http://localhost:5000', // the base url of the running ionic application. 
-    // callbackURL: 'http://localhost:5000/login'
-  }
-};
+export AUTH0_DOMAIN ='publiclibrary.us.auth0.com'
+export ALGORITHMS =['RS256']
+export API_AUDIENCE ='http://localhost:5000'
+export CLINT_ID='9UXpyB2qhXB48l6frCDhPofrSZjmyhfA'
+export FLASK_APP=app.y
+export DATABASE_URL='postgres://ayrojxosrdycfl:1879923d9fad9601ba959eea32940b768854f1f66a7b02a77818ab2678083dce@ec2-34-192-173-173.compute-1.amazonaws.com:5432/dfr9u71jrqqbdr'

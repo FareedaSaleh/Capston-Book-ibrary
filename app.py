@@ -44,7 +44,10 @@ def create_app(test_config=None):
         current_author = authors[start:end]
         return current_author
 # Book Routs
-
+    @app.route('/')
+    def home_idex():
+        return 'Welcome'
+        
     @app.route('/books', methods=['GET'])
     def get_books():
         books = Book.query.all()
