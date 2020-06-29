@@ -187,9 +187,10 @@ COPY public.alembic_version (version_num) FROM stdin;
 COPY public.author (id, auth_nam, gender, count_book) FROM stdin;
 1	Fareeda                                                                                                                                                                                                 	F                                                 	1
 2	Mohammad                                                                                                                                                                                                	M                                                 	1
-3	Amal                                                                                                                                                                                                    	F                                                 	15
 4	Fareeda1                                                                                                                                                                                                	F                                                 	1
 5	Fareeda1                                                                                                                                                                                                	F                                                 	1
+6	Abdullah                                                                                                                                                                                                	M                                                 	2
+3	Amal                                                                                                                                                                                                    	F                                                 	40
 \.
 
 
@@ -198,10 +199,36 @@ COPY public.author (id, auth_nam, gender, count_book) FROM stdin;
 --
 
 COPY public.book (id, book_name, book_issue) FROM stdin;
-3	Book3                                                                                                                                                                                                   	2020-03-13
 4	Book4                                                                                                                                                                                                   	2020-03-13
 1	Computer                                                                                                                                                                                                	2020-03-13
-2	Helth                                                                                                                                                                                                   	2020-01-13
+30	Hope                                                                                                                                                                                                    	2020-01-01
+32	Hope11                                                                                                                                                                                                  	2020-01-01
+5	Computer                                                                                                                                                                                                	2020-03-13
+6	Computer                                                                                                                                                                                                	2020-03-13
+7	Computer yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy                                                                                                                                                               	2020-03-13
+8	Computer yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy                                                                                                                                                               	2020-03-13
+9	Computer yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy                                                                                                                                                               	2020-03-13
+10	Computer yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy                                                                                                                                                               	2020-03-13
+11	Computer yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy                                                                                                                                                               	2020-03-13
+12	Computer                                                                                                                                                                                                	2020-03-13
+13	Computer11                                                                                                                                                                                              	2020-03-13
+14	Computer11                                                                                                                                                                                              	2020-03-13
+15	Computer11                                                                                                                                                                                              	2020-03-13
+16	Computer11                                                                                                                                                                                              	2020-03-13
+17	Computer11                                                                                                                                                                                              	2020-03-13
+18	Computer11                                                                                                                                                                                              	2020-03-13
+19	Computer11                                                                                                                                                                                              	2020-03-13
+20	Computer11                                                                                                                                                                                              	2020-03-13
+21	Computer2                                                                                                                                                                                               	2020-03-13
+22	Computer2                                                                                                                                                                                               	2020-03-13
+23	Computer2                                                                                                                                                                                               	2020-03-13
+2	Computer2                                                                                                                                                                                               	2020-03-13
+24	Antomy                                                                                                                                                                                                  	2020-01-13
+25	Book22                                                                                                                                                                                                  	2010-03-13
+26	Book22w                                                                                                                                                                                                 	2020-03-22
+27	Hope                                                                                                                                                                                                    	2020-01-01
+28	Hope                                                                                                                                                                                                    	2020-01-01
+29	Hope                                                                                                                                                                                                    	2020-01-01
 \.
 
 
@@ -219,14 +246,14 @@ COPY public.category (id, name) FROM stdin;
 -- Name: author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.author_id_seq', 5, true);
+SELECT pg_catalog.setval('public.author_id_seq', 6, true);
 
 
 --
 -- Name: book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.book_id_seq', 2, true);
+SELECT pg_catalog.setval('public.book_id_seq', 32, true);
 
 
 --
