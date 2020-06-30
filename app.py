@@ -11,8 +11,10 @@ from sqlalchemy import exc
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
+    CORS(app)
+    app.config.from_object('config')
     setup_db(app)
-    migrate = Migrate(app, db)
+    # migrate = Migrate(app, db)
     CORS(app, resources={r"*": {"origins": "*"}})
 
     # CORS configration
