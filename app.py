@@ -44,12 +44,12 @@ def create_app(test_config=None):
         authors = [auth.format() for auth in selection]
         current_author = authors[start:end]
         return current_author
-## main route ##
+    # main route
 
     @app.route('/')
     def home_idex():
         return 'Welcome'
-## Book Routs ##
+# Book Routs #
 
     @app.route('/books', methods=['GET'])
     def get_books():
@@ -75,11 +75,11 @@ def create_app(test_config=None):
             abort(404)
         else:
             book.delete()
-        return jsonify({
-            "success": True,
-            "massege": 'book is delete',
-            "deleted": book_id
-        })
+            return jsonify({
+                "success": True,
+                "massege": 'book is delete',
+                "deleted": book_id
+            })
 
     @app.route('/books', methods=['POST'])
     @requires_auth('post:book')
@@ -88,7 +88,7 @@ def create_app(test_config=None):
         new_book_issue = request.json.get('book_issue')
 
         if new_book_name is None or new_book_issue is None:
-            print("Error - ", ex)
+            print("Error - ", exc)
             abort(400)
         try:
             book = Book(book_name=new_book_name, book_issue=new_book_issue)
@@ -97,8 +97,8 @@ def create_app(test_config=None):
                 'success': True,
                 'book': book.id
             })
-        except BaseException as ex:
-            print("Error - ", ex)
+        except BaseException as exc:
+            print("Error - ", exc)
             abort(422)
 
     @app.route('/books/<int:book_id>', methods=['PATCH'])
@@ -119,7 +119,7 @@ def create_app(test_config=None):
         except BaseException:
             abort(422)
 
-## Author routs ##
+# Author routs #
 
     @app.route('/authors', methods=['GET'])
     def get_authers():
@@ -175,7 +175,8 @@ def create_app(test_config=None):
         new_gender = request.json.get('gender')
         new_count_book = request.json.get('count_book')
 
-        if new_auth_name is None or new_gender is None or new_count_book is None:
+        if (new_auth_name is None or new_gender is None or
+                new_count_book is None):
             abort(400)
         try:
             author = Author(
@@ -190,7 +191,7 @@ def create_app(test_config=None):
         except BaseException:
             abort(422)
 
-       # search endpont for book name
+    # search endpont for book name
     @app.route('/books/search', methods=['POST'])
     def book_search():
         body = request.get_json()
@@ -213,7 +214,7 @@ def create_app(test_config=None):
         except BaseException:
             abort(422)
 
-       # error handeler methods:
+    # error handeler methods:
     @app.errorhandler(401)
     def unauthorized_error(error):
         return jsonify({
