@@ -5,8 +5,10 @@ import json
 from flask_migrate import Migrate
 
 database_name = "library"
-# database_path = "postgres://{}/{}".format('localhost:5432', database_name)
-database_path ='postgres://ayrojxosrdycfl:1879923d9fad9601ba959eea32940b768854f1f66a7b02a77818ab2678083dce@ec2-34-192-173-173.compute-1.amazonaws.com:5432/dfr9u71jrqqbdr'
+# url for local database:
+database_path = "postgres://{}/{}".format('localhost:5432', database_name)
+# database url for heroku
+# database_path ='postgres://ayrojxosrdycfl:1879923d9fad9601ba959eea32940b768854f1f66a7b02a77818ab2678083dce@ec2-34-192-173-173.compute-1.amazonaws.com:5432/dfr9u71jrqqbdr'
 db = SQLAlchemy()
 # migrate = Migrate(app, db)
 

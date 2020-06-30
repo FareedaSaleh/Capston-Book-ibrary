@@ -14,7 +14,6 @@ def create_app(test_config=None):
     CORS(app)
     app.config.from_object('config')
     setup_db(app)
-    # migrate = Migrate(app, db)
     CORS(app, resources={r"*": {"origins": "*"}})
 
     # CORS configration
@@ -45,11 +44,13 @@ def create_app(test_config=None):
         authors = [auth.format() for auth in selection]
         current_author = authors[start:end]
         return current_author
-# Book Routs
+## main route ##
+
     @app.route('/')
     def home_idex():
         return 'Welcome'
-        
+## Book Routs ##
+
     @app.route('/books', methods=['GET'])
     def get_books():
         books = Book.query.all()
@@ -118,7 +119,8 @@ def create_app(test_config=None):
         except BaseException:
             abort(422)
 
-# Author routs
+## Author routs ##
+
     @app.route('/authors', methods=['GET'])
     def get_authers():
         author = Author.query.all()
@@ -145,8 +147,8 @@ def create_app(test_config=None):
             "massege": "Author is deleted",
             "deleted": author.id
         })
-    # admin can only add the uthor
 
+    # admin can only add the uthor
     @app.route('/authors/<int:auth_id>', methods=['PATCH'])
     @requires_auth('patch:author')
     def edite_author(jwt, auth_id):
@@ -266,5 +268,3 @@ app = create_app()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
-    # port = int(os.environ.get("PORT", 5000))
-    # APP.run(host='0.0.0.0', port=port, debug=True)
