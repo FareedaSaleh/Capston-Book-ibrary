@@ -8,7 +8,8 @@ database_name = "library"
 # url for local database:
 database_path = "postgres://{}/{}".format('localhost:5432', database_name)
 # database url for heroku
-# database_path ='postgres://ayrojxosrdycfl:1879923d9fad9601ba959eea32940b768854f1f66a7b02a77818ab2678083dce@ec2-34-192-173-173.compute-1.amazonaws.com:5432/dfr9u71jrqqbdr'
+# database_path ='postgres://ayrojxosrdycfl:1879923d9fad9601ba959eea32940b7688
+# '54f1f66a7b02a77818ab2678083dce@ec2-34-192-173-173.compute-1.amazonaws.com:5432/dfr9u71jrqqbdr'
 db = SQLAlchemy()
 # migrate = Migrate(app, db)
 
@@ -24,7 +25,6 @@ def setup_db(app, database_path=database_path):
     migrate = Migrate(app, db)
     db.app = app
     db.init_app(app)
-    db.create_all()
 
 
 '''
@@ -116,7 +116,8 @@ class Book(db.Model):
 
 
 '''
-Ralation with Category Book and Author will be add in the 2nd version of this project
+Ralation with Category Book and Author
+will be add in the 2nd version of this project
 '''
 
 
@@ -125,7 +126,8 @@ class Category(db.Model):
     id = Column(db.Integer, primary_key=True)
     name = Column(db.String, nullable=False)
     # book_id = db.Column(db.Integer, db.ForeignKey('book.id'),nullable=False)
-    # author_id = db.Column(db.Integer, db.ForeignKey('author.id'),nullable=False)
+    # author_id = db.Column(db.Integer,
+    # db.ForeignKey('author.id'),nullable=False)
 
     def __init__(self, name, book_id, author_id):
         self.name = name

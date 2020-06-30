@@ -45,7 +45,8 @@ class LibraryTestCase(unittest.TestCase):
     # test delete book
     def test_delet_book(self):
         res = self.client().delete('/books/2',
-                                   headers={'Authorization': 'Bearer ' + self.admin})
+                                   headers={'Authorization': 'Bearer ' +
+                                            self.admin})
         data = json.loads(res.data)
         book = Book.query.filter(Book.id == 2).one_or_none()
         self.assertEqual(res.status_code, 200)
@@ -60,7 +61,8 @@ class LibraryTestCase(unittest.TestCase):
             headers={
                 'Authorization': 'Bearer ' + self.author_assistant},
             json={
-                'book_name': 'Fish: A Proven Way to Boost Morale and Improve Results',
+                'book_name': 'Fish: A Proven Way to'
+                'Boost Morale and Improve Results',
                 'book_issue': '2020-03-13'})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
@@ -92,7 +94,8 @@ class LibraryTestCase(unittest.TestCase):
 
     def test_delete_author(self):
         res = self.client().delete('/authors/2',
-                                   headers={'Authorization': 'Bearer ' + self.admin})
+                                   headers={'Authorization': 'Bearer ' +
+                                            self.admin})
         data = json.loads(res.data)
         book = Book.query.filter(Book.id == 2).one_or_none()
         self.assertEqual(res.status_code, 200)
@@ -138,7 +141,8 @@ class LibraryTestCase(unittest.TestCase):
 
     def test_404_if_delete_book_does_not_found(self):
         res = self.client().delete('/books/1000',
-                                   headers={'Authorization': 'Bearer ' + self.admin})
+                                   headers={'Authorization': 'Bearer ' +
+                                            self.admin})
         data = json.loads(res.data)
         book = Book.query.filter(Book.id == 200).one_or_none()
         self.assertEqual(res.status_code, 404)
@@ -147,7 +151,8 @@ class LibraryTestCase(unittest.TestCase):
 
     def test_404_if_delete_uthor_dos_not_found(self):
         res = self.client().delete('/authors/1000',
-                                   headers={'Authorization': 'Bearer ' + self.admin})
+                                   headers={'Authorization': 'Bearer ' +
+                                            self.admin})
         data = json.loads(res.data)
         auth = Author.query.filter(Author.id == 200).one_or_none()
         self.assertEqual(res.status_code, 404)
@@ -167,7 +172,8 @@ class LibraryTestCase(unittest.TestCase):
 
     def test_401_if_uthors_delete_authors(self):
         res = self.client().delete('authors/4',
-                                   headers={'Authorization': 'Bearer ' + self.author_assistant})
+                                   headers={'Authorization': 'Bearer ' +
+                                            self.author_assistant})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 401)
         self.assertEqual(data['success'], False)
@@ -191,7 +197,6 @@ class LibraryTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Page Not Found')
-
 
 
 # Make the tests conveniently executable
