@@ -88,7 +88,6 @@ def create_app(test_config=None):
         new_book_issue = request.json.get('book_issue')
 
         if new_book_name is None or new_book_issue is None:
-            print("Error - ", exc)
             abort(400)
         try:
             book = Book(book_name=new_book_name, book_issue=new_book_issue)
@@ -97,8 +96,7 @@ def create_app(test_config=None):
                 'success': True,
                 'book': book.id
             })
-        except BaseException as exc:
-            print("Error - ", exc)
+        except BaseException:
             abort(422)
 
     @app.route('/books/<int:book_id>', methods=['PATCH'])
