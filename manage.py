@@ -12,3 +12,4 @@ manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
+    # This is a new line that ends the file.
