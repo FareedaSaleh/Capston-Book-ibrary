@@ -20,8 +20,46 @@ class LibraryTestCase(unittest.TestCase):
         self.database_path = "postgres://{}/{}".format(
             'localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
-        self.admin = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InZnbFFud3dmbDJBNDJLMkVOSUdKbSJ9.eyJpc3MiOiJodHRwczovL3B1YmxpY2xpYnJhcnkudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlZjhlNzMyNzE0NjhjMDAxM2ZmYjNhNCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImlhdCI6MTU5MzU5OTgzNywiZXhwIjoxNTkzNjg2MjM3LCJhenAiOiI5VVhweUIycWhYQjQ4bDZmckNEaFBvZnJTWmpteWhmQSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmF1dGhvciIsImRlbGV0ZTpib29rIiwicGF0Y2g6YXV0aG9yIiwicGF0Y2g6Ym9vayIsInBvc3Q6YXV0aG9yIiwicG9zdDpib29rIl19.lQVVHnzV_bG-NL8dR9l1CL_Jjb88BBS_NP4phU1pjDl03EGten4JDE8reRnkVWjYkEUmkVgEqAUwtbiQjFT-NpaPr2_MDCcvnqhKVw14ugA4rx6aY94SwGejfqM6sF-onABFdTbo8uqA11DDPOj1r21aQdxnrz9QRB6mAFXHjDiuLCm8NiWDL4qz0_PePEwbWOm9bDwYgXgHeyzljN5hemMB3Cqt6N6Znw4xv3g_kQiqpOWNcH37TYyCorNlVir0q5uu0FwZWkltlbzxXQ7lYstpftEuOVFzi9aKKDXZtDVSorj80ItiUOedsH4mK_g5cK6AGeT4grae3ExdXCGBFA'
-        self.author_assistant = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InZnbFFud3dmbDJBNDJLMkVOSUdKbSJ9.eyJpc3MiOiJodHRwczovL3B1YmxpY2xpYnJhcnkudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlZjhlNzA0NzE0NjhjMDAxM2ZmYjNhMSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImlhdCI6MTU5MzU5OTkxNSwiZXhwIjoxNTkzNjg2MzE1LCJhenAiOiI5VVhweUIycWhYQjQ4bDZmckNEaFBvZnJTWmpteWhmQSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsicGF0Y2g6Ym9vayIsInBvc3Q6Ym9vayJdfQ.lJXzqceD9GTDTTtX531pgGBIpjCaH7o_hgVVlMw-ozvXyWMKxOwUshA9PSTukH6JOv-RyGbZ19tX6zwLeU_xyi2eziPgC18GC_WXqkMO17sDWLN_HDA30rrkySJG1sB8LuFPGowmbdSGWBX19_2qn1exRMUDk4pFdees_afI0dWDnmgPKmYO-8mR6rvST6qok_Wfenm8PlYK1BUc3ZwgmSIqL-uqzc32pC72Rnrwj8Y3xRbB6N3T_V93_BOu2GIle83TQFKBsvvvcjts0K8TWnUNxXNKEtJCbdTKyXysVc-U3LhHKdBFKndbiI56Cb8AmpawlYKpT8ZCsGo3a5o9Vg'
+        self.admin = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZ'\
+                     'CI6InZnbFFud3dmbDJBNDJLMkVOSUdKbSJ9.eyJpc3M'\
+                     'iOiJodHRwczovL3B1YmxpY2xpYnJhcnkudXMuYXV0aDAu'\
+                     'Y29tLyIsInN1YiI6ImF1dGgwfDVlZjhlNzMyNzE0Njhj'\
+                     'MDAxM2ZmYjNhNCIsImF1ZCI6Imh0dHA6Ly9sb2NhbG'\
+                     'hvc3Q6NTAwMCIsImlhdCI6MTU5MzU5OTgzNywiZXhwI'\
+                     'joxNTkzNjg2MjM3LCJhenAiOiI5VVhweUIycWhYQ'\
+                     'jQ4bDZmckNEaFBvZnJTWmpteWhmQSIsInNjb3BlIj'\
+                     'oiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmF'\
+                     '1dGhvciIsImRlbGV0ZTpib29rIiwicGF0Y2g6'\
+                     'YXV0aG9yIiwicGF0Y2g6Ym9vayIsInBvc3Q6Y'\
+                     'XV0aG9yIiwicG9zdDpib29rIl19.lQVVHnz'\
+                     'V_bG-NL8dR9l1CL_Jjb88BBS_NP4phU1p'\
+                     'jDl03EGten4JDE8reRnkVWjYkEUmkVgEqA'\
+                     'UwtbiQjFT-NpaPr2_MDCcvnqhKVw14ugA4r'\
+                     'x6aY94SwGejfqM6sF-onABFdTbo8uqA11DD'\
+                     'POj1r21aQdxnrz9QRB6mAFXHjDiuLCm8Ni'\
+                     'WDL4qz0_PePEwbWOm9bDwYgXgHeyzljN5h'\
+                     'emMB3Cqt6N6Znw4xv3g_kQiqpOWNcH37'\
+                     'TYyCorNlVir0q5uu0FwZWkltlbzxXQ7l'\
+                     'YstpftEuOVFzi9aKKDXZtDVSorj80'\
+                     'ItiUOedsH4mK_g5cK6AGeT4grae3ExdXCGBFA'
+        self.author_assistant = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtp'\
+                                'ZCI6InZnbFFud3dmbDJBNDJLMkVOSUdKbSJ9.eyJ'\
+                                'pc3MiOiJodHRwczovL3B1YmxpY2xpYnJhcnkudXM'\
+                                'uYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlZjhl'\
+                                'NzA0NzE0NjhjMDAxM2ZmYjNhMSIsImF1ZCI6Imh0dH'\
+                                'A6Ly9sb2NhbGhvc3Q6NTAwMCIsImlhdCI6MTU5MzU5O'\
+                                'TkxNSwiZXhwIjoxNTkzNjg2MzE1LCJhenAiOiI5VVhw'\
+                                'eUIycWhYQjQ4bDZmckNEaFBvZnJTWmpteWhmQSIsInN'\
+                                'jb3BlIjoiIiwicGVybWlzc2lvbnMiOlsicGF0Y2g6Ym'\
+                                '9vayIsInBvc3Q6Ym9vayJdfQ.lJXzqceD9GTDTTtX531'\
+                                'pgGBIpjCaH7o_hgVVlMw-ozvXyWMKxOwUshA9PSTukH'\
+                                '6JOv-RyGbZ19tX6zwLeU_xyi2eziPgC18GC_WXqkMO17'\
+                                'sDWLN_HDA30rrkySJG1sB8LuFPGowmbdSGWBX19_2'\
+                                'qn1exRMUDk4pFdees_afI0dWDnmgPKmYO-8mR6rvS'\
+                                'T6qok_Wfenm8PlYK1BUc3ZwgmSIqL-uqzc32pC7'\
+                                '2Rnrwj8Y3xRbB6N3T_V93_BOu2GIle83TQFKBs'\
+                                'vvvcjts0K8TWnUNxXNKEtJCbdTKyXysVc-U3'\
+                                'LhHKdBFKndbiI56Cb8AmpawlYKpT8ZCsGo3a5o9Vg'
 
         with self.app.app_context():
             self.db = SQLAlchemy()
